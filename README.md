@@ -307,7 +307,7 @@ sqlite3 .\data\database.db
 ```sql
 create table contatos (
   id int primary key,
-  nome text,
+  nome varchar(100),
   endereco text,
   telefone text
 );
