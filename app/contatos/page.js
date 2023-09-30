@@ -1,3 +1,4 @@
+"use client"
 import styles from './contatos.module.css'
 import Link from 'next/link'
 
