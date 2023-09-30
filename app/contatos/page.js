@@ -20,7 +20,7 @@ export default async function Page() {
       <div className={styles.principal}>
         <table className={styles.contatos}>
           <thead>
-            <tr>
+            <tr key={contato.id}>
               <th>Nome</th>
               <th>Endereço</th>
               <th>Telefone</th>
