@@ -3,8 +3,9 @@ import Link from 'next/link'
 
 const baseUrl =
   (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000");
-async function buscarContatos() {
+async function buscarContatos() {  
   try {
+    console.log(baseUrl)
     const resposta = await fetch(`${baseUrl}/api/contatos`);
     return await resposta.json();
   } catch (erro) {
