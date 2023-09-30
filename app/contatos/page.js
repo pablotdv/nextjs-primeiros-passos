@@ -2,8 +2,13 @@ import styles from './contatos.module.css'
 import Link from 'next/link'
 
 async function buscarContatos() {
-  const resposta = await fetch("http://localhost:3000/api/contatos");
-  return await resposta.json();
+  try {
+    const resposta = await fetch("http://localhost:3000/api/contatos");
+    return await resposta.json();
+  } catch (erro) {
+    console.error(erro);
+    return [];
+  }
 }
 
 export default async function Page() {
