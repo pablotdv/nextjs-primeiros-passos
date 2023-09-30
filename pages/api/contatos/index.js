@@ -1,40 +1,26 @@
-const sqlite3 = require("sqlite3").verbose()
-let db = new sqlite3.Database("./data/database.db")
+import { sql } from "@vercel/postgres";
 
-export default function handler(req, res) {
-
+export default async function handler(req, res) {
   if (req.method === 'GET') {
-    db.all(`select * from contatos`, (err, rows) => {
-      if (err) {
-        console.error(err.message);
-        res.status(500).send(err.message);
-        return;
-      }
-
-      res.json(rows);
-    })
+    const { rows } = await sql`SELECT * from contatos`;
+    res.json(rows);
     return;
-  } else if (req.method === 'POST') {
-    // insert into contatos (id, nome, endereco, telefone) values (4, 'Contato 4', 'Rua 4', '+1 55 98765-98765');
+  } 
+  else if (req.method === 'POST') {
     const { nome, endereco, telefone } = req.body;
-    db.run('insert into contatos (nome, endereco, telefone) values (?,?,?)', [nome, endereco, telefone],
-      (err) => {
-        //callback
-        if (err) {
-          res.status(500).json({ error: err.message });
-          return;
-        }
-        res.status(201).end();
-      })
+
+    try {
+      await sql`
+        INSERT INTO contatos (nome, endereco, telefone) 
+        VALUES (${nome}, ${endereco}, ${telefone});
+      `;
+      res.status(201).end();
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
     return;
   }
 
   res.status(405).end();
   return;
 }
-
-/*
-Sucesso: 200 > 299
-Erro cliente: 400 > 499
-Erro servidor: 500 > 599
-*/
