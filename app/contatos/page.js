@@ -1,9 +1,11 @@
 import styles from './contatos.module.css'
 import Link from 'next/link'
 
+const baseUrl =
+  (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000");
 async function buscarContatos() {
   try {
-    const resposta = await fetch("http://localhost:3000/api/contatos");
+    const resposta = await fetch(`${baseUrl}/api/contatos`);
     return await resposta.json();
   } catch (erro) {
     console.error(erro);
