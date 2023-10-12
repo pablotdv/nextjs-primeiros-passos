@@ -1,9 +1,17 @@
 import styles from './contatos.module.css'
 import Link from 'next/link'
 
+const baseUrl =
+  (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000");
 async function buscarContatos() {
-  const resposta = await fetch("http://localhost:3000/api/contatos");
-  return await resposta.json();
+  try {
+    console.log(baseUrl)
+    const resposta = await fetch(`${baseUrl}/api/contatos`, { cache: 'no-store' });
+    return await resposta.json();
+  } catch (erro) {
+    console.error(erro);
+    return [];
+  }
 }
 
 export default async function Page() {
@@ -24,7 +32,7 @@ export default async function Page() {
           <tbody>
             {
               contatos.map((contato) =>
-                <tr>
+                <tr key={contato.id}>
                   <td>{contato.nome}</td>
                   <td>{contato.endereco}</td>
                   <td>{contato.telefone}</td>
@@ -42,3 +50,4 @@ export default async function Page() {
     </div>
   )
 }
+

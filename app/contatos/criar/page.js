@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "../contatos.module.css"
 
+const baseUrl =
+  (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000");
+
 export default function Criar() {
   const router = useRouter();
 
@@ -18,7 +21,7 @@ export default function Criar() {
       nome, endereco, telefone
     }
 
-    const resposta = await fetch("http://localhost:3000/api/contatos", {
+    const resposta = await fetch(`${baseUrl}/api/contatos`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
