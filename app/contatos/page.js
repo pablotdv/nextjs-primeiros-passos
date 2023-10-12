@@ -6,7 +6,7 @@ const baseUrl =
 
 async function buscarContatos() {
   try {
-    const resposta = await fetch(`${baseUrl}/api/contatos`);
+    const resposta = await fetch(`${baseUrl}/api/contatos`, { cache: 'no-store' });
     return await resposta.json();
   } catch (erro) {
     console.error(erro);
