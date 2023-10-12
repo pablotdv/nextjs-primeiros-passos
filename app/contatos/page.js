@@ -1,4 +1,3 @@
-"use client"
 import styles from './contatos.module.css'
 import Link from 'next/link'
 
@@ -7,7 +6,7 @@ const baseUrl =
 async function buscarContatos() {
   try {
     console.log(baseUrl)
-    const resposta = await fetch(`${baseUrl}/api/contatos`);
+    const resposta = await fetch(`${baseUrl}/api/contatos`, { cache: 'no-store' });
     return await resposta.json();
   } catch (erro) {
     console.error(erro);
@@ -51,3 +50,4 @@ export default async function Page() {
     </div>
   )
 }
+
