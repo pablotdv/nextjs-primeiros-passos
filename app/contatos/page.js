@@ -24,6 +24,7 @@ export default async function Page() {
         <table className={styles.contatos}>
           <thead>
             <tr>
+              <th></th>
               <th>Nome</th>
               <th>Endereço</th>
               <th>Telefone</th>
@@ -33,6 +34,9 @@ export default async function Page() {
             {
               contatos.map((contato) =>
                 <tr key={contato.id}>
+                  <td>
+                    <Link href={`/contatos/${contato.id}/editar`}>Editar</Link> | <Link href={`/contatos/${contato.id}/excluir`}>Excluir</Link>
+                  </td>
                   <td>{contato.nome}</td>
                   <td>{contato.endereco}</td>
                   <td>{contato.telefone}</td>
@@ -42,7 +46,7 @@ export default async function Page() {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan="3">Total contatos: {contatos.length}</td>
+              <td colSpan="4">Total contatos: {contatos.length}</td>
             </tr>
           </tfoot>
         </table>

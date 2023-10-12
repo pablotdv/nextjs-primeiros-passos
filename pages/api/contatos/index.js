@@ -3,7 +3,7 @@ import { sql } from "@vercel/postgres"
 export default async function handler(req, res) {
 
   if (req.method === 'GET') {
-    const { rows } = await sql`select * from contatos`;
+    const { rows } = await sql`select * from contatos order by nome`;
 
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.setHeader('Pragma', 'no-cache');
