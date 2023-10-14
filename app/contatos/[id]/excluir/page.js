@@ -50,6 +50,11 @@ export default function Page({ params: { id } }) {
             <div className={styles.principal}>
                 <div>
                     <p><strong>Nome: </strong>{contato.nome}</p>
+                    <p><strong>Estado: </strong>{contato.estado}</p>
+                    <p><strong>Cidade: </strong>{contato.cidade}</p>
+                    <p><strong>Bairro: </strong>{contato.bairro}</p>
+                    <p><strong>Numero: </strong>{contato.numero}</p>
+                    <p><strong>Tipo: </strong>{contato.tipo}</p>
                     <p><strong>Endereço: </strong>{contato.endereco}</p>
                     <p><strong>Telefone: </strong>{contato.telefone}</p>
                 </div>

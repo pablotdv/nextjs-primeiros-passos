@@ -12,11 +12,18 @@ export default async function handler(req, res) {
         res.json(rows[0] || null);
         return;
     } else if (req.method === 'PUT') {
-        const { nome, endereco, telefone } = req.body;
+        const { nome, logradouro, telefone, estado, cidade, bairro, numero, tipo } = req.body;
         try {
             await sql`
                 update contatos
-                set nome = ${nome}, endereco = ${endereco}, telefone = ${telefone}
+                set nome = ${nome}, 
+                    logradouro = ${logradouro}, 
+                    telefone = ${telefone},
+                    estado = ${estado},
+                    cidade = ${cidade},
+                    bairro = ${bairro},
+                    numero = ${numero},
+                    tipo = ${tipo}
                 where id = ${req.query.id}
             `
             res.status(201).end();

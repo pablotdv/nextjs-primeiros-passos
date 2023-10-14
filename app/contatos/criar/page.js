@@ -11,14 +11,19 @@ export default function Criar() {
   const router = useRouter();
 
   const [nome, setNome] = useState("");
-  const [endereco, setEndereco] = useState("");
+  const [logradouro, setLogradouro] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [estado, setEstado] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [numero, setNumero] = useState("");
+  const [tipo, setTipo] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const contato = {
-      nome, endereco, telefone
+      nome, logradouro, telefone, estado, cidade, bairro, numero, tipo
     }
 
     const resposta = await fetch(`${baseUrl}/api/contatos`, {
@@ -49,12 +54,50 @@ export default function Criar() {
               type="text" />
           </div>
           <div>
-            <label>Endereco: </label>
+            <label>Estado: </label>
             <input
-              value={endereco}
-              onChange={(event) => setEndereco(event.target.value)}              
+              value={estado}
+              onChange={(event) => setEstado(event.target.value)}
               type="text" />
           </div>
+          <div>
+            <label>Cidade: </label>
+            <input
+              value={cidade}
+              onChange={(event) => setCidade(event.target.value)}
+              type="text" />
+          </div>
+          <div>
+            <label>Bairro: </label>
+            <input
+              value={bairro}
+              onChange={(event) => setBairro(event.target.value)}
+              type="text" />
+          </div>
+          <div>
+            <label>Numero: </label>
+            <input
+              value={numero}
+              onChange={(event) => setNumero(event.target.value)}
+              type="text" />
+          </div>
+          <div>
+            <label>Logradouro: </label>
+            <input
+              value={logradouro}
+              onChange={(event) => setLogradouro(event.target.value)}
+              type="text" />
+          </div>
+          <div>
+            <label>Tipo: </label>
+            <select
+              value={tipo}
+              onChange={(event) => setTipo(event.target.value)}>
+                <option>Selecione</option>
+                <option value="Pessoal">Pessoal</option>
+                <option value="Profissional">Profissional</option>
+            </select>
+          </div>          
           <div>
             <label>Telefone: </label>
             <input
