@@ -20,9 +20,6 @@ export default async function handler(req, res) {
                                   order by nome `;
       res.json(rows);
     }
-
-
-    res.json(rows);
     return;
   } else if (req.method === 'POST') {
     const { nome, logradouro, telefone, estado, cidade, bairro, numero, tipo } = req.body;
