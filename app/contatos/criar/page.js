@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "../contatos.module.css"
+import Authenticator from "@/src/components/authenticator";
 
 const baseUrl =
   (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000");
@@ -44,73 +45,75 @@ export default function Criar() {
   }
 
   return (
-    <div className={styles.container}>
-      <h1>Criar contato</h1>
-      <div className={styles.principal}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Nome: </label>
-            <input
-              value={nome}
-              onChange={(event) => setNome(event.target.value)}
-              type="text" />
-          </div>
-          <div>
-            <label>Estado: </label>
-            <input
-              value={estado}
-              onChange={(event) => setEstado(event.target.value)}
-              type="text" />
-          </div>
-          <div>
-            <label>Cidade: </label>
-            <input
-              value={cidade}
-              onChange={(event) => setCidade(event.target.value)}
-              type="text" />
-          </div>
-          <div>
-            <label>Bairro: </label>
-            <input
-              value={bairro}
-              onChange={(event) => setBairro(event.target.value)}
-              type="text" />
-          </div>
-          <div>
-            <label>Numero: </label>
-            <input
-              value={numero}
-              onChange={(event) => setNumero(event.target.value)}
-              type="text" />
-          </div>
-          <div>
-            <label>Logradouro: </label>
-            <input
-              value={logradouro}
-              onChange={(event) => setLogradouro(event.target.value)}
-              type="text" />
-          </div>
-          <div>
-            <label>Tipo: </label>
-            <select
-              value={tipo}
-              onChange={(event) => setTipo(event.target.value)}>
+    <Authenticator>
+      <div className={styles.container}>
+        <h1>Criar contato</h1>
+        <div className={styles.principal}>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Nome: </label>
+              <input
+                value={nome}
+                onChange={(event) => setNome(event.target.value)}
+                type="text" />
+            </div>
+            <div>
+              <label>Estado: </label>
+              <input
+                value={estado}
+                onChange={(event) => setEstado(event.target.value)}
+                type="text" />
+            </div>
+            <div>
+              <label>Cidade: </label>
+              <input
+                value={cidade}
+                onChange={(event) => setCidade(event.target.value)}
+                type="text" />
+            </div>
+            <div>
+              <label>Bairro: </label>
+              <input
+                value={bairro}
+                onChange={(event) => setBairro(event.target.value)}
+                type="text" />
+            </div>
+            <div>
+              <label>Numero: </label>
+              <input
+                value={numero}
+                onChange={(event) => setNumero(event.target.value)}
+                type="text" />
+            </div>
+            <div>
+              <label>Logradouro: </label>
+              <input
+                value={logradouro}
+                onChange={(event) => setLogradouro(event.target.value)}
+                type="text" />
+            </div>
+            <div>
+              <label>Tipo: </label>
+              <select
+                value={tipo}
+                onChange={(event) => setTipo(event.target.value)}>
                 <option>Selecione</option>
                 <option value="Pessoal">Pessoal</option>
                 <option value="Profissional">Profissional</option>
-            </select>
-          </div>          
-          <div>
-            <label>Telefone: </label>
-            <input
-              value={telefone}
-              onChange={(event) => setTelefone(event.target.value)}
-              type="number" />
-          </div>
-          <button type="submit">Criar</button>
-          <Link href="/contatos" className={styles.espacamento}>Voltar</Link>
-        </form>
+              </select>
+            </div>
+            <div>
+              <label>Telefone: </label>
+              <input
+                value={telefone}
+                onChange={(event) => setTelefone(event.target.value)}
+                type="number" />
+            </div>
+            <button type="submit">Criar</button>
+            <Link href="/contatos" className={styles.espacamento}>Voltar</Link>
+          </form>
+        </div>
       </div>
-    </div>
+    </Authenticator>
   );
 }
