@@ -35,7 +35,6 @@ export default function Page() {
     })
   }, [bairro])
   return (
-    <Authenticator>
       <div className={styles.container}>
         <h1>Olá NextJS - Contatos Page</h1>
         <Link href="/contatos/criar">Criar</Link>
@@ -86,6 +85,5 @@ export default function Page() {
           </table>
         </div>
       </div>
-    </Authenticator>
   )
 }
