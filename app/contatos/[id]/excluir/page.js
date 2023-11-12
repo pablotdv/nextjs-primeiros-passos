@@ -9,7 +9,13 @@ const baseUrl =
 
 async function buscarContato(id) {
     try {
-        const resposta = await fetch(`${baseUrl}/api/contatos/${id}`, { cache: 'no-store' });
+        const token = localStorage.getItem('token');
+        const resposta = await fetch(`${baseUrl}/api/contatos/${id}`, {
+            cache: 'no-store',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return await resposta.json();
     } catch (erro) {
         console.error(erro);
@@ -32,8 +38,12 @@ export default function Page({ params: { id } }) {
         const confirmation = window.confirm("Tem certeza de que deseja excluir este contato?")
         if (confirmation) {
 
+            const token = localStorage.getItem('token');
             const resposta = await fetch(`${baseUrl}/api/contatos/${contato.id}`, {
                 method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             if (resposta.ok) {
                 router.push("/contatos")

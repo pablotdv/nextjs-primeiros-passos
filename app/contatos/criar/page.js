@@ -26,10 +26,12 @@ export default function Criar() {
       nome, logradouro, telefone, estado, cidade, bairro, numero, tipo
     }
 
+    const token = localStorage.getItem('token');
     const resposta = await fetch(`${baseUrl}/api/contatos`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(contato)
     })

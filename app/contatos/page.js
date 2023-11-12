@@ -8,7 +8,13 @@ const baseUrl =
 
 async function buscarContatos(bairro) {
   try {
-    const resposta = await fetch(`${baseUrl}/api/contatos?bairro=${bairro}`, { cache: 'no-store' });
+    const token = localStorage.getItem('token');
+    const resposta = await fetch(`${baseUrl}/api/contatos?bairro=${bairro}`, {
+      cache: 'no-store',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     return await resposta.json();
   } catch (erro) {
     console.error(erro);
@@ -32,7 +38,7 @@ export default function Page() {
       <h1>Olá NextJS - Contatos Page</h1>
       <Link href="/contatos/criar">Criar</Link>
       <div className={styles.principal}>
-        <input 
+        <input
           value={bairro}
           onChange={event => setBairro(event.target.value)}
           placeholder='Pesquisa por bairro...'

@@ -9,7 +9,13 @@ const baseUrl =
 
 async function buscarContato(id) {
   try {
-    const resposta = await fetch(`${baseUrl}/api/contatos/${id}`, { cache: 'no-store' });
+    const token = localStorage.getItem('token');
+    const resposta = await fetch(`${baseUrl}/api/contatos/${id}`, {
+      cache: 'no-store',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     return await resposta.json();
   } catch (erro) {
     console.error(erro);
@@ -19,16 +25,16 @@ async function buscarContato(id) {
 
 export default function Page({ params: { id } }) {
   const router = useRouter();
-  const [contato, setContato] = useState({ 
-    nome: '', 
-    logradouro: '', 
-    telefone: '', 
+  const [contato, setContato] = useState({
+    nome: '',
+    logradouro: '',
+    telefone: '',
     estado: '',
     cidade: '',
     bairro: '',
     numero: '',
     tipo: '',
-   })
+  })
   useEffect(() => {
     async function fetchData() {
       const data = await buscarContato(id)
@@ -44,11 +50,12 @@ export default function Page({ params: { id } }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    const token = localStorage.getItem('token');
     const resposta = await fetch(`${baseUrl}/api/contatos/${contato.id}`, {
       method: "PUT",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(contato)
     })
@@ -122,7 +129,7 @@ export default function Page({ params: { id } }) {
               <option value="Pessoal">Pessoal</option>
               <option value="Profissional">Profissional</option>
             </select>
-          </div>          
+          </div>
           <div>
             <label>Telefone: </label>
             <input
