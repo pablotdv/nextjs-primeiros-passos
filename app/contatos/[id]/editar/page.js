@@ -30,9 +30,7 @@ export default function Page({ params: { id } }) {
     nome: '',
     logradouro: '',
     telefone: '',
-    estado: '',
-    cidade: '',
-    bairro: '',
+    bairroid: '',
     numero: '',
     tipo: '',
   })
@@ -81,28 +79,12 @@ export default function Page({ params: { id } }) {
                 name="nome"
                 onChange={handleChange}
                 type="text" />
-            </div>
-            <div>
-              <label>Estado: </label>
-              <input
-                value={contato.estado}
-                name="estado"
-                onChange={handleChange}
-                type="text" />
-            </div>
-            <div>
-              <label>Cidade: </label>
-              <input
-                value={contato.cidade}
-                name="cidade"
-                onChange={handleChange}
-                type="text" />
-            </div>
+            </div>            
             <div>
               <label>Bairro: </label>
               <input
-                value={contato.bairro}
-                name="bairro"
+                value={contato.bairroid}
+                name="bairroid"
                 onChange={handleChange}
                 type="text" />
             </div>
