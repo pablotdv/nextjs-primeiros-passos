@@ -10,15 +10,21 @@ export default async function handler(req, res) {
 
       if (req.query.bairro) {
         const bairroLike = `%${req.query.bairro}%`
-        const { rows } = await sql` select * 
-                                  from contatos 
-                                  where bairro like ${bairroLike}
-                                  order by nome `;
+        const { rows } = await sql` select contatos.*, bairros.nome as bairro, cidades.nome as cidade, estados.nome as estado
+                                    from contatos
+                                      join bairros on contatos.bairroid = bairros.id
+                                      join cidades on bairros.cidadeid = cidades.id
+                                      join estados on cidades.estadoid = estados.id 
+                                    where bairros.nome like ${bairroLike}
+                                    order by nome `;
         res.json(rows);
       } else {
-        const { rows } = await sql` select * 
-                                  from contatos                                   
-                                  order by nome `;
+        const { rows } = await sql` select contatos.*, bairros.nome as bairro, cidades.nome as cidade, estados.nome as estado
+                                    from contatos
+                                      join bairros on contatos.bairroid = bairros.id
+                                      join cidades on bairros.cidadeid = cidades.id
+                                      join estados on cidades.estadoid = estados.id 
+                                    order by contatos.nome `;
         res.json(rows);
       }
       return;

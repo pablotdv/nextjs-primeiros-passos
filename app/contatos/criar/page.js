@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "../contatos.module.css"
@@ -17,6 +17,59 @@ export default function Criar() {
   const [bairro, setBairro] = useState("");
   const [numero, setNumero] = useState("");
   const [tipo, setTipo] = useState("");
+
+  const [estados, setEstados] = useState([])
+  const [cidades, setCidades] = useState([])
+  const [bairros, setBairros] = useState([])
+
+  useEffect(() => {
+    const buscarEstados = async () => {
+      const token = localStorage.getItem("token")
+      const resposta = await fetch(`${baseUrl}/api/estados`, {
+        cache: 'no-store',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      const dados = await resposta.json()
+      setEstados(dados)
+    }
+
+    buscarEstados()
+  }, [])
+
+  const estadoChange = async (event) => {
+    const buscarCidades = async () => {
+      const token = localStorage.getItem("token")
+      const resposta = await fetch(`${baseUrl}/api/cidades?estadoid=${event.target.value}`, {
+        cache: 'no-store',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      const dados = await resposta.json()
+      setCidades(dados)
+    }
+
+    await buscarCidades()
+  }
+
+  const cidadeChange = async (event) => {
+    const buscarBairros = async () => {
+      const token = localStorage.getItem("token")
+      const resposta = await fetch(`${baseUrl}/api/bairros?cidadeid=${event.target.value}`, {
+        cache: 'no-store',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      const dados = await resposta.json()
+      setBairros(dados)
+    }
+
+    await buscarBairros()
+  }
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -54,14 +107,37 @@ export default function Criar() {
                 value={nome}
                 onChange={(event) => setNome(event.target.value)}
                 type="text" />
-            </div>            
+            </div>
+            <div>
+              <label>Estado: </label>
+              <select onChange={estadoChange}>
+                <option>Selecione</option>
+                {estados.map(estado => (
+                  <option key={estado.id} value={estado.id}>{estado.nome}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label>Cidade: </label>
+              <select onChange={cidadeChange}>
+                <option>Selecione</option>
+                {cidades.map(cidade => (
+                  <option key={cidade.id} value={cidade.id}>{cidade.nome}</option>
+                ))}
+              </select>
+            </div>
             <div>
               <label>Bairro: </label>
-              <input
+              <select
                 value={bairro}
                 onChange={(event) => setBairro(event.target.value)}
-                type="text" />
-            </div>
+              >
+                <option>Selecione</option>
+                {bairros.map(bairro => (
+                  <option key={bairro.id} value={bairro.id}>{bairro.nome}</option>
+                ))}
+              </select>
+            </div>            
             <div>
               <label>Numero: </label>
               <input

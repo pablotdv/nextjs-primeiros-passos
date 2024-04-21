@@ -4,7 +4,12 @@ import { sql } from "@vercel/postgres"
 export default async function handler(req, res) {
     return authMiddleware(async (req, res) => {
         if (req.method === 'GET') {
-            const { rows } = await sql`select * from contatos where id = ${req.query.id}`;
+            const { rows } = await sql` select c.*, b.nome as bairro, c2.nome as cidade, e.nome as estado, b.cidadeid, c2.estadoid 
+                                            from contatos c 
+                                            join bairros b on c.bairroid = b.id 
+                                            join cidades c2 on b.cidadeid = c2.id 
+                                            join estados e on c2.estadoid = e.id
+                                        where c.id = ${req.query.id}`;
 
             res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
             res.setHeader('Pragma', 'no-cache');

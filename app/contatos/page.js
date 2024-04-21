@@ -68,7 +68,7 @@ export default function Page() {
                     <td>{contato.nome}</td>
                     <td>{contato.estado}</td>
                     <td>{contato.cidade}</td>
-                    <td>{contato.bairroid}</td>
+                    <td>{contato.bairro}</td>
                     <td>{contato.numero}</td>
                     <td>{contato.logradouro}</td>
                     <td>{contato.tipo}</td>

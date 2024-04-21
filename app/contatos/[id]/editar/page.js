@@ -34,13 +34,72 @@ export default function Page({ params: { id } }) {
     numero: '',
     tipo: '',
   })
+
+  const [estados, setEstados] = useState([])
+  const [cidades, setCidades] = useState([])
+  const [bairros, setBairros] = useState([])
+
+  const [estadoId, setEstadoId] = useState(0)
+  const [cidadeId, setCidadeId] = useState(0)
+
   useEffect(() => {
     async function fetchData() {
-      const data = await buscarContato(id)
+      const data = await buscarContato(id)      
       setContato(data)
+      setEstadoId(data.estadoid)
+      setCidadeId(data.cidadeid)
     }
     fetchData()
   }, [id])
+
+  useEffect(() => {
+    async function buscarEstados() {
+      const token = localStorage.getItem('token');
+      const resposta = await fetch(`${baseUrl}/api/estados`, {
+        cache: 'no-store',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const dados = await resposta.json();
+      setEstados(dados);
+    }
+    buscarEstados();
+  }, [])
+
+  useEffect(() => {
+    async function buscarCidades() {
+      const token = localStorage.getItem('token');
+      const resposta = await fetch(`${baseUrl}/api/cidades?estadoid=${estadoId}`, {
+        cache: 'no-store',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const dados = await resposta.json();
+      setCidades(dados);
+    }
+    if (estadoId) {
+      buscarCidades();
+    }
+  }, [estadoId])
+
+  useEffect(() => {
+    async function buscarBairros() {
+      const token = localStorage.getItem('token');
+      const resposta = await fetch(`${baseUrl}/api/bairros?cidadeid=${cidadeId}`, {
+        cache: 'no-store',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const dados = await resposta.json();
+      setBairros(dados);
+    }
+    if (cidadeId) {
+      buscarBairros();
+    }
+  }, [cidadeId])
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -79,14 +138,55 @@ export default function Page({ params: { id } }) {
                 name="nome"
                 onChange={handleChange}
                 type="text" />
-            </div>            
+            </div>
+            <div>
+              <label>Estado: </label>
+              <select
+                value={estadoId}
+                onChange={(event) => {
+                  setCidades([])
+                  setBairros([])
+                  setCidadeId(0)                  
+                  setContato(prevState => ({ ...prevState, bairroid: 0 }))                  
+                  setEstadoId(event.target.value)                  
+                }}
+                name="estadoid"
+              >
+                <option>Selecione</option>
+                {estados.map(estado => (
+                  <option key={estado.id} value={estado.id}>{estado.nome}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label>Cidade: </label>
+              <select
+                value={cidadeId}
+                onChange={(event) => {
+                  setBairros([]);
+                  setContato(prevState => ({ ...prevState, bairroid: 0 }))
+                  setCidadeId(event.target.value);                  
+                }}
+                name="cidadeid"
+              >
+                <option>Selecione</option>
+                {cidades.map(cidade => (
+                  <option key={cidade.id} value={cidade.id}>{cidade.nome}</option>
+                ))}
+              </select>
+            </div>
             <div>
               <label>Bairro: </label>
-              <input
+              <select
                 value={contato.bairroid}
-                name="bairroid"
                 onChange={handleChange}
-                type="text" />
+                name="bairroid"
+              >
+                <option>Selecione</option>
+                {bairros.map(bairro => (
+                  <option key={bairro.id} value={bairro.id}>{bairro.nome}</option>
+                ))}
+              </select>
             </div>
             <div>
               <label>Numero: </label>
@@ -108,7 +208,9 @@ export default function Page({ params: { id } }) {
               <label>Tipo: </label>
               <select
                 value={contato.tipo}
-                onChange={handleChange}>
+                onChange={handleChange}
+                name="tipo"
+                >
                 <option>Selecione</option>
                 <option value="Pessoal">Pessoal</option>
                 <option value="Profissional">Profissional</option>
