@@ -26,7 +26,7 @@ async function buscarContato(id) {
 
 export default function Page({ params: { id } }) {
     const router = useRouter();
-    const [contato, setContato] = useState({ nome: '', endereco: '', telefone: '' })
+    const [contato, setContato] = useState({ })
     useEffect(() => {
         async function fetchData() {
             const data = await buscarContato(id)
@@ -69,6 +69,8 @@ export default function Page({ params: { id } }) {
                         <p><strong>Tipo: </strong>{contato.tipo}</p>
                         <p><strong>Endereço: </strong>{contato.endereco}</p>
                         <p><strong>Telefone: </strong>{contato.telefone}</p>
+                        <p><strong>Observação: </strong>{contato.observacao}</p>
+                        <p><strong>Idade: </strong>{contato.idade}</p>
                     </div>
                     <button onClick={handleDelete}>Excluir</button>
                     <Link href="/contatos" className={styles.espacamento}>Voltar</Link>

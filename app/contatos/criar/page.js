@@ -17,6 +17,8 @@ export default function Criar() {
   const [bairro, setBairro] = useState("");
   const [numero, setNumero] = useState("");
   const [tipo, setTipo] = useState("");
+  const [observacao, setObservacao] = useState("");
+  const [idade, setIdade] = useState(0);
 
   const [estados, setEstados] = useState([])
   const [cidades, setCidades] = useState([])
@@ -75,7 +77,7 @@ export default function Criar() {
     event.preventDefault();
 
     const contato = {
-      nome, logradouro, telefone, bairro, numero, tipo
+      nome, logradouro, telefone, bairro, numero, tipo, observacao, idade
     }
 
     const token = localStorage.getItem('token');
@@ -167,6 +169,20 @@ export default function Criar() {
               <input
                 value={telefone}
                 onChange={(event) => setTelefone(event.target.value)}
+                type="number" />
+            </div>
+            <div>
+              <label>Observação: </label>
+              <input
+                value={observacao}
+                onChange={(event) => setObservacao(event.target.value)}
+                type="text" />
+            </div>
+            <div>
+              <label>Idade: </label>
+              <input
+                value={idade}
+                onChange={(event) => setIdade(event.target.value)}
                 type="number" />
             </div>
             <button type="submit">Criar</button>

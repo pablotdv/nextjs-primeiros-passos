@@ -33,6 +33,8 @@ export default function Page({ params: { id } }) {
     bairroid: '',
     numero: '',
     tipo: '',
+    observacao: '',
+    idade: 0
   })
 
   const [estados, setEstados] = useState([])
@@ -221,6 +223,22 @@ export default function Page({ params: { id } }) {
               <input
                 value={contato.telefone}
                 name="telefone"
+                onChange={handleChange}
+                type="number" />
+            </div>
+            <div>
+              <label>Observação: </label>
+              <input
+                value={contato.observacao}
+                name="observacao"
+                onChange={handleChange}
+                type="text" />
+            </div>
+            <div>
+              <label>Idade: </label>
+              <input
+                value={contato.idade}
+                name="idade"
                 onChange={handleChange}
                 type="number" />
             </div>
