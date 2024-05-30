@@ -29,7 +29,8 @@ export default async function handler(req, res) {
       }
       return;
     } else if (req.method === 'POST') {
-      const { nome,
+      const {
+        nome,
         logradouro,
         telefone,
         bairro,
@@ -41,7 +42,7 @@ export default async function handler(req, res) {
 
       try {
         await sql`insert into contatos (nome, logradouro, telefone, bairroid, numero, tipo, observacao, idade) 
-                values (${nome},${logradouro},${telefone},${bairro},${numero},${tipo},${observacao},${idade})`
+                  values (${nome},${logradouro},${telefone},${bairro},${numero},${tipo},${observacao},${idade})`
         res.status(201).end();
       } catch (error) {
         res.status(500).json({ error: error.message })

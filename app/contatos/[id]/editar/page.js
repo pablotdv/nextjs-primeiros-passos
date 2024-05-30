@@ -46,7 +46,7 @@ export default function Page({ params: { id } }) {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await buscarContato(id)      
+      const data = await buscarContato(id)
       setContato(data)
       setEstadoId(data.estadoid)
       setCidadeId(data.cidadeid)
@@ -148,9 +148,9 @@ export default function Page({ params: { id } }) {
                 onChange={(event) => {
                   setCidades([])
                   setBairros([])
-                  setCidadeId(0)                  
-                  setContato(prevState => ({ ...prevState, bairroid: 0 }))                  
-                  setEstadoId(event.target.value)                  
+                  setCidadeId(0)
+                  setContato(prevState => ({ ...prevState, bairroid: 0 }))
+                  setEstadoId(event.target.value)
                 }}
                 name="estadoid"
               >
@@ -167,7 +167,7 @@ export default function Page({ params: { id } }) {
                 onChange={(event) => {
                   setBairros([]);
                   setContato(prevState => ({ ...prevState, bairroid: 0 }))
-                  setCidadeId(event.target.value);                  
+                  setCidadeId(event.target.value);
                 }}
                 name="cidadeid"
               >
@@ -212,7 +212,7 @@ export default function Page({ params: { id } }) {
                 value={contato.tipo}
                 onChange={handleChange}
                 name="tipo"
-                >
+              >
                 <option>Selecione</option>
                 <option value="Pessoal">Pessoal</option>
                 <option value="Profissional">Profissional</option>
