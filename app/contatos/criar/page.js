@@ -18,7 +18,7 @@ export default function Criar() {
   const [numero, setNumero] = useState("");
   const [tipo, setTipo] = useState("");
   const [observacao, setObservacao] = useState("");
-  const [idade, setIdade] = useState(0);
+  const [idade, setIdade] = useState("");
 
   const [estados, setEstados] = useState([])
   const [cidades, setCidades] = useState([])
@@ -139,7 +139,7 @@ export default function Criar() {
                   <option key={bairro.id} value={bairro.id}>{bairro.nome}</option>
                 ))}
               </select>
-            </div>            
+            </div>
             <div>
               <label>Numero: </label>
               <input
@@ -172,11 +172,11 @@ export default function Criar() {
                 type="number" />
             </div>
             <div>
-              <label>Observação: </label>
-              <input
+              <label>Observação</label>
+              <textarea
                 value={observacao}
                 onChange={(event) => setObservacao(event.target.value)}
-                type="text" />
+              />
             </div>
             <div>
               <label>Idade: </label>
